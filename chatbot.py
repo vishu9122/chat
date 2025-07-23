@@ -7,7 +7,13 @@ API_URL = "https://api-inference.huggingface.co/models"
 
 # ✅ Updated model list (all public + working)
 HF_MODELS = {
-    "deepseek":"deepseek-ai/DeepSeek-R1-0528"
+    "DeepSeek R1": "deepseek-ai/DeepSeek-R1-0528",
+    "Mistral 7B": "mistralai/Mistral-7B-Instruct-v0.1",
+    "Gemma 7B": "google/gemma-7b-it",
+    "Zephyr 7B": "HuggingFaceH4/zephyr-7b-beta",
+    "Phi-2": "microsoft/phi-2"
+}
+
 }
 
 # Page setup
