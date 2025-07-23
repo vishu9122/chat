@@ -7,12 +7,7 @@ API_URL = "https://api-inference.huggingface.co/models"
 
 # ✅ Updated model list (all public + working)
 HF_MODELS = {
-    "TinyLLaMA 1.1B Chat": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",  # Rama2B-like
-    "Mistral 7B Instruct": "mistralai/Mistral-7B-Instruct-v0.1",
-    "Gemma 7B IT": "google/gemma-7b-it",
-    "Zephyr 7B Beta": "HuggingFaceH4/zephyr-7b-beta",
-    "Falcon RW 1B": "tiiuae/falcon-rw-1b",
-    "OpenChat 3.5": "openchat/openchat-3.5"
+    "deepseek":"deepseek-ai/DeepSeek-R1-0528"
 }
 
 # Page setup
