@@ -3,7 +3,7 @@ import requests
 
 # Load Hugging Face API key from Streamlit Cloud secret
 HF_API_KEY = st.secrets["HF_API_KEY"]
-API_URL = "https://api-inference.huggingface.co/models"
+API_URL = "https://api.dify.ai/v1/chat-messages"
 
 # ✅ Verified working models
 HF_MODELS = {
