@@ -7,8 +7,8 @@ API_URL = "https://api-inference.huggingface.co/models"
 
 # ✅ Verified working models
 HF_MODELS = {
-    "Zephyr 7B": "HuggingFaceH4/zephyr-7b-beta",
-    "Mistral 7B": "mistralai/Mistral-7B-Instruct-v0.1",
+    "Zephy": "HuggingFaceTB/SmolLM3-3B",
+    "openai": "openai/whisper-large-v3",
     "TinyLLaMA": "TinyLlama/TinyLlama-1.1B-Chat-v1.0"
 }
 
