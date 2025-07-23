@@ -5,14 +5,14 @@ import requests
 HF_API_KEY = st.secrets["HF_API_KEY"]
 API_URL = "https://api-inference.huggingface.co/models"
 
-# Model list with Rama2B and 5 other options
+# ✅ Updated model list (all public + working)
 HF_MODELS = {
-    "Rama2B (Platypus2-13B)": "garage-bAInd/Platypus2-13B",
-    "LLaMA 2 (7B Chat)": "meta-llama/Llama-2-7b-chat-hf",
-    "Mixtral 8x7B": "mistralai/Mixtral-8x7B-Instruct-v0.1",
+    "TinyLLaMA 1.1B Chat": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",  # Rama2B-like
+    "Mistral 7B Instruct": "mistralai/Mistral-7B-Instruct-v0.1",
+    "Gemma 7B IT": "google/gemma-7b-it",
+    "Zephyr 7B Beta": "HuggingFaceH4/zephyr-7b-beta",
     "Falcon RW 1B": "tiiuae/falcon-rw-1b",
-    "Gemma 7B": "google/gemma-7b-it",
-    "Mistral 7B": "mistralai/Mistral-7B-Instruct-v0.1"
+    "OpenChat 3.5": "openchat/openchat-3.5"
 }
 
 # Page setup
@@ -42,12 +42,14 @@ def ask_huggingface(model_id, message):
             output = response.json()
             if isinstance(output, list) and "generated_text" in output[0]:
                 return output[0]["generated_text"]
-            elif "generated_text" in output:
+            elif isinstance(output, dict) and "generated_text" in output:
                 return output["generated_text"]
+            elif isinstance(output, list) and "output" in output[0]:
+                return output[0]["output"]
             else:
                 return str(output)
         except Exception as e:
-            return f"Error parsing response: {e}"
+            return f"❌ Error parsing response: {e}"
     else:
         return f"❌ API error {response.status_code}: {response.text}"
 
