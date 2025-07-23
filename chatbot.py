@@ -5,9 +5,11 @@ import requests
 HF_API_KEY = st.secrets["HF_API_KEY"]
 API_URL = "https://api-inference.huggingface.co/models"
 
-# ✅ Updated model list (all public + working)
+# ✅ Verified working models
 HF_MODELS = {
-"Zephyr 7B":"HuggingFaceTB/SmolLM3-3B" 
+    "Zephyr 7B": "HuggingFaceH4/zephyr-7b-beta",
+    "Mistral 7B": "mistralai/Mistral-7B-Instruct-v0.1",
+    "TinyLLaMA": "TinyLlama/TinyLlama-1.1B-Chat-v1.0"
 }
 
 # Page setup
