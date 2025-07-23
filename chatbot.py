@@ -12,7 +12,6 @@ HF_MODELS = {
     "Gemma 7B": "google/gemma-7b-it",
     "Zephyr 7B": "HuggingFaceH4/zephyr-7b-beta",
     "Phi-2": "microsoft/phi-2"
-}
 
 }
 
