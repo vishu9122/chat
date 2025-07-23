@@ -1,57 +1,66 @@
 import streamlit as st
 import requests
 
-# Load secret API key from Streamlit Cloud secrets
+# Load Hugging Face API key from Streamlit Cloud secrets
 HF_API_KEY = st.secrets["HF_API_KEY"]
-API_URL_BASE = "https://api-inference.huggingface.co/models"
+API_URL = "https://api-inference.huggingface.co/models"
 
-# UI setup
-st.set_page_config(page_title="Hugging Face Chatbot", layout="centered")
-st.title("🤖 Hugging Face Chatbot")
-
+# Model list with Rama2B and 5 other options
 HF_MODELS = {
-    "LLaMA 2 (7B)": "meta-llama/Llama-2-7b-chat-hf",
+    "Rama2B (Platypus2-13B)": "garage-bAInd/Platypus2-13B",
+    "LLaMA 2 (7B Chat)": "meta-llama/Llama-2-7b-chat-hf",
     "Mixtral 8x7B": "mistralai/Mixtral-8x7B-Instruct-v0.1",
     "Falcon RW 1B": "tiiuae/falcon-rw-1b",
     "Gemma 7B": "google/gemma-7b-it",
-    "OpenChat 3.5": "openchat/openchat-3.5",
-    "Mistral 7B Instruct": "mistralai/Mistral-7B-Instruct-v0.1"
+    "Mistral 7B": "mistralai/Mistral-7B-Instruct-v0.1"
 }
 
-# Model selection
-model_name = st.selectbox("🧠 Select a model:", list(HF_MODELS.keys()))
-model_id = HF_MODELS[model_name]
+# Page setup
+st.set_page_config(page_title="🤖 Hugging Face Chatbot", layout="centered")
+st.title("🤖 Hugging Face Chatbot")
 
-# Chat history
+# Model selector
+selected_label = st.selectbox("🧠 Choose a Model", list(HF_MODELS.keys()))
+selected_model = HF_MODELS[selected_label]
+
+# Chat history storage
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 
-# User input
-user_input = st.text_input("💬 Ask something:")
-
-# Call Hugging Face API
-def query_huggingface(model, prompt):
+# Send user message to Hugging Face
+def ask_huggingface(model_id, message):
     headers = {
         "Authorization": f"Bearer {HF_API_KEY}"
     }
     payload = {
-        "inputs": prompt,
+        "inputs": message,
         "options": {"wait_for_model": True}
     }
-    response = requests.post(f"{API_URL_BASE}/{model}", headers=headers, json=payload)
+    response = requests.post(f"{API_URL}/{model_id}", headers=headers, json=payload)
     if response.status_code == 200:
-        result = response.json()
-        return result[0]["generated_text"] if isinstance(result, list) else result.get("generated_text", "")
+        try:
+            output = response.json()
+            if isinstance(output, list) and "generated_text" in output[0]:
+                return output[0]["generated_text"]
+            elif "generated_text" in output:
+                return output["generated_text"]
+            else:
+                return str(output)
+        except Exception as e:
+            return f"Error parsing response: {e}"
     else:
-        return f"❌ Error: {response.status_code} - {response.text}"
+        return f"❌ API error {response.status_code}: {response.text}"
 
-# Display chat
+# Text input
+user_input = st.text_input("💬 Ask the chatbot something:")
+
+# Generate response
 if user_input:
     st.session_state.chat_history.append(("You", user_input))
     with st.spinner("Generating response..."):
-        response = query_huggingface(model_id, user_input)
-    st.session_state.chat_history.append(("Bot", response))
+        response = ask_huggingface(selected_model, user_input)
+    st.session_state.chat_history.append((selected_label, response))
 
-# Show chat history
+# Display chat
 for sender, msg in st.session_state.chat_history:
     st.markdown(f"**{sender}:** {msg}")
