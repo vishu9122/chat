@@ -7,7 +7,7 @@ API_URL = "https://api-inference.huggingface.co/models"
 
 # ✅ Updated model list (all public + working)
 HF_MODELS = {
-"meta ":"Llama-3.2-1B-Instruct" 
+"Zephyr 7B":"HuggingFaceH4/zephyr-7b-beta" 
 
 
 }
