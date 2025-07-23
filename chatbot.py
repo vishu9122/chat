@@ -7,7 +7,8 @@ API_URL = "https://api-inference.huggingface.co/models"
 
 # ✅ Updated model list (all public + working)
 HF_MODELS = {
-   "nvidia": "nvidia/canary-qwen-2.5b" 
+ "DeepSeek Coder": "deepseek-ai/deepseek-coder-6.7b-instruct"
+
 
 }
 
