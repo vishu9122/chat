@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 
 # Load Hugging Face API key securely
-HF_API_KEY = st.secrets["HF_API_KEY"]
+HF_API_KEY = st.secrets["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"]
 
 # Correct API base URL for Hugging Face
 HF_API_URL = "https://api-inference.huggingface.co/models"
